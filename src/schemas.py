@@ -1,4 +1,5 @@
 from litestar.plugins.sqlalchemy import SQLAlchemyDTO, SQLAlchemyDTOConfig
+from pydantic import BaseModel
 
 
 class ExcludeIdDTO(SQLAlchemyDTO):
@@ -7,3 +8,12 @@ class ExcludeIdDTO(SQLAlchemyDTO):
 
 class ExcludeIdAndTimestampsDTO(SQLAlchemyDTO):
     config = SQLAlchemyDTOConfig(exclude={'id', 'created_at', 'updated_at'})
+
+
+class AuthDTO(BaseModel):
+    username: str
+    password: str
+
+
+class CreateRoomDTO(BaseModel):
+    password: str | None = None

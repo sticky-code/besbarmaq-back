@@ -1,5 +1,7 @@
 x-common-variables: &common-variables
   DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/postgres
+  SECRET_KEY: secret_key
+  JWT_EXPIRATION: 3600
 
 services:
   app:

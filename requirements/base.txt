@@ -5,3 +5,5 @@ uvicorn
 sqlalchemy[asyncpg]
 advanced-alchemy
 asyncpg
+bcrypt
+pyjwt
