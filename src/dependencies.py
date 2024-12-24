@@ -17,6 +17,6 @@ async def get_user_id(request: Request) -> int:
     try:
         return jwt.decode(token, settings.secret_key, algorithms=[settings.jwt_algorithm])['user_id']
     except ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail='Token has expired')
+        raise HTTPException(status_code=status_codes.HTTP_401_UNAUTHORIZED, detail='Token has expired')
     except InvalidTokenError:
-        raise HTTPException(status_code=401, detail='Invalid token')
+        raise HTTPException(status_code=status_codes.HTTP_401_UNAUTHORIZED, detail='Invalid token')
