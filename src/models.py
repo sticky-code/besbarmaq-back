@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 
 import bcrypt
 from sqlalchemy import UUID, Column, Enum, ForeignKey, Integer, String, Table
@@ -44,8 +45,8 @@ class Statistic(Base):
 
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), primary_key=True)
     user: Mapped['User'] = relationship(back_populates='statistics')
-    overall_wpm: Mapped[int] = mapped_column()
-    overall_accuracy: Mapped[float] = mapped_column()
+    overall_wpm: Mapped[int]
+    overall_accuracy: Mapped[float]
 
 
 class RoomStatistic(Base):
@@ -55,8 +56,8 @@ class RoomStatistic(Base):
     room_id: Mapped[uuid.UUID] = mapped_column(ForeignKey('rooms.id', ondelete='CASCADE'))
     room: Mapped['Room'] = relationship(back_populates='statistics')
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id', ondelete='CASCADE'))
-    wpm: Mapped[int] = mapped_column()
-    accuracy: Mapped[float] = mapped_column()
+    wpm: Mapped[int]
+    accuracy: Mapped[float]
 
 
 class Room(Base):
@@ -72,4 +73,4 @@ class Room(Base):
     )
     statistics: Mapped[list['RoomStatistic']] = relationship('RoomStatistic', back_populates='room')
     status: Mapped[RoomStatusType] = mapped_column(Enum(RoomStatusType), default=RoomStatusType.OPEN)
-    password: Mapped[str] = mapped_column(nullable=True, default=None)
+    password: Mapped[Optional[str]]
